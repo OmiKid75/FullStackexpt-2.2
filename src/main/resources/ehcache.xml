@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ehcache 3 configuration, used through the JCache (JSR-107) API by Spring Cache.
+  Loaded because of:  spring.cache.jcache.config=classpath:ehcache.xml
+
+  NOTE: no <key-type>/<value-type> is declared on purpose. Spring asks JCache for
+  caches without type information, and Ehcache refuses that if specific types are declared.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.ehcache.org/v3"
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="
+            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd
+            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext.xsd">
+
+    <service>
+        <!-- Turn on hit/miss statistics (read through JMX by /api/diagnostics/cache) -->
+        <jsr107:defaults enable-management="true" enable-statistics="true"/>
+    </service>
+
+    <!-- Single resources by id.  Key = resource id. -->
+    <cache alias="resources">
+        <expiry>
+            <ttl unit="minutes">10</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap>
+        </resources>
+    </cache>
+
+    <!-- The full list of categories.  Key = 'all'. -->
+    <cache alias="categories">
+        <expiry>
+            <ttl unit="minutes">30</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">10</heap>
+        </resources>
+    </cache>
+
+    <!-- Single categories by id.  Key = category id. -->
+    <cache alias="categoryById">
+        <expiry>
+            <ttl unit="minutes">30</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">200</heap>
+        </resources>
+    </cache>
+</config>

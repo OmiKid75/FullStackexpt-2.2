@@ -1,0 +1,19 @@
+# OPTIONAL. The project runs fine with a normal local MySQL 8 install.
+# Use this only if you prefer Docker:   docker compose up -d
+# MySQL is published on host port 3307 so it cannot clash with a local MySQL on 3306.
+# Then run the app with:
+#   $env:DB_URL="jdbc:mysql://localhost:3307/campus_library?allowPublicKeyRetrieval=true&serverTimezone=UTC"
+#   $env:DB_USERNAME="root"; $env:DB_PASSWORD="change_me_local_only"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: campus-library-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: change_me_local_only
+      MYSQL_DATABASE: campus_library
+    ports:
+      - "3307:3306"
+    volumes:
+      - campus_mysql_data:/var/lib/mysql
+volumes:
+  campus_mysql_data:

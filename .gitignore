@@ -1,0 +1,20 @@
+# Build output
+target/
+*.class
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Secrets
+.env
+
+# JMeter results
+performance-tests/results/
+*.jtl
+jmeter.log
